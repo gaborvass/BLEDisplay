@@ -24,8 +24,8 @@
 U8G2_SH1106_128X64_NONAME_1_4W_SW_SPI u8g2(U8G2_R0, 10, 9, 12, 11, 13);
 
 // initial Time display is 12:59:45 PM
-int hour = 22;
-int mins = 6;
+int hour = 23;
+int mins = 10;
 int sec = 0;
 
 static uint32_t last_time, now = 0; // RTC
@@ -33,8 +33,6 @@ static uint32_t last_time, now = 0; // RTC
 void setup()
 {
     u8g2.begin();
-    //BLEMini.begin(57600); 
-    //Serial.begin(57600);
     now = 1548604043; // read RTC initial value  
 
 }
@@ -53,9 +51,16 @@ void loop(){
   u8g2.firstPage();
   do {
     char buff[50];
-    sprintf(buff, "%02d:%02d:%02d", hour, mins, sec);
-    u8g2.setFont(u8g2_font_fub20_tn);
-    u8g2.drawStr(10,34,buff);
+    sprintf(buff, "%02d", hour);
+    u8g2.setFont(u8g2_font_logisoso42_tn);
+    u8g2.drawStr(5,50,buff);
+
+    sprintf(buff, "%02d", mins);
+    u8g2.drawStr(75,50,buff);
+
+    sprintf(buff, "%02d", sec);
+    u8g2.setFont(u8g2_font_6x10_mn);
+    u8g2.drawStr(62,36,buff);
   } while ( u8g2.nextPage() );
   for ( int i=0 ;i<5 ;i++)// make 5 time 200ms loop, for faster Button response
   {
@@ -101,6 +106,6 @@ void loop(){
   {
     hour = 0;
   } 
-  // Loop end
-  
+  // Loop end 
+
 }
